@@ -31,29 +31,21 @@ struct ContentView: View {
                 // 2) Display each habit
                 ForEach(sortedHabits) { habit in
                     Button {
-                        // Mark incomplete habit as complete
                         if !isHabitCompletedToday(habit) {
                             completeHabit(habit)
                         }
                     } label: {
-                        // 3) Row layout
                         HStack {
-                            // Name + Streak
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(habit.name)
                                     .foregroundColor(
                                         isHabitCompletedToday(habit) ? .gray : .primary
                                     )
-                                
-                                // Display the streak in smaller text
                                 Text("🔥 \(habit.streak) \(habit.streak == 1 ? "day" : "days")")
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
                             }
-                            
                             Spacer()
-                            
-                            // If completed, show checkmark
                             if isHabitCompletedToday(habit) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundColor(.green)
@@ -61,13 +53,22 @@ struct ContentView: View {
                         }
                         .padding(.vertical, 4)
                     }
-                    // 4) Different background for completed vs. incomplete
                     .listRowBackground(
                         isHabitCompletedToday(habit)
                         ? Color.green.opacity(0.2)
                         : Color.gray.opacity(0.2)
                     )
+                    // SWIPE ACTIONS - Only available on watchOS 9+
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            // Remove the habit from the store
+                            store.removeHabit(habit)
+                        } label: {
+                            Label("Delete", systemImage: "trash")
+                        }
+                    }
                 }
+
                 
                 // 5) Add Habit Section
                 Section {
