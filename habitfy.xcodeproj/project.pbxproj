@@ -21,6 +21,7 @@
 		1444D8F92D3EC6F0005CCF9C /* AddHabitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8F82D3EC6F0005CCF9C /* AddHabitView.swift */; };
 		1444D8FB2D3EC743005CCF9C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8FA2D3EC743005CCF9C /* AnalyticsView.swift */; };
 		1444D8FD2D3EC772005CCF9C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8FC2D3EC772005CCF9C /* NotificationManager.swift */; };
+		1444D9012D3FFDB3005CCF9C /* DayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9002D3FFDB3005CCF9C /* DayProgress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		1444D8F82D3EC6F0005CCF9C /* AddHabitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitView.swift; sourceTree = "<group>"; };
 		1444D8FA2D3EC743005CCF9C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		1444D8FC2D3EC772005CCF9C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		1444D9002D3FFDB3005CCF9C /* DayProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayProgress.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				1444D8F62D3EC6A0005CCF9C /* TodayHabitsView.swift */,
 				1444D8F82D3EC6F0005CCF9C /* AddHabitView.swift */,
 				1444D8FA2D3EC743005CCF9C /* AnalyticsView.swift */,
+				1444D9002D3FFDB3005CCF9C /* DayProgress.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1444D8F72D3EC6A0005CCF9C /* TodayHabitsView.swift in Sources */,
+				1444D9012D3FFDB3005CCF9C /* DayProgress.swift in Sources */,
 				1444D8F52D3EC643005CCF9C /* HabitStore.swift in Sources */,
 				1444D8F32D3EC62E005CCF9C /* Habit.swift in Sources */,
 				1444D8C02D3EC436005CCF9C /* ContentView.swift in Sources */,

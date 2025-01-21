@@ -9,6 +9,7 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var store = HabitStore()
     @State private var today = Date()
+    
 
     var body: some View {
         NavigationView {
@@ -31,6 +32,7 @@ struct ContentView: View {
                 // 2) Display each habit
                 ForEach(sortedHabits) { habit in
                     Button {
+                        // Mark incomplete habit as complete
                         if !isHabitCompletedToday(habit) {
                             completeHabit(habit)
                         }
@@ -41,6 +43,7 @@ struct ContentView: View {
                                     .foregroundColor(
                                         isHabitCompletedToday(habit) ? .gray : .primary
                                     )
+                                
                                 Text("🔥 \(habit.streak) \(habit.streak == 1 ? "day" : "days")")
                                     .font(.caption2)
                                     .foregroundColor(.secondary)
@@ -58,16 +61,28 @@ struct ContentView: View {
                         ? Color.green.opacity(0.2)
                         : Color.gray.opacity(0.2)
                     )
-                    // SWIPE ACTIONS - Only available on watchOS 9+
+                    // 1) Swipe Left: Delete Habit
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
-                            // Remove the habit from the store
                             store.removeHabit(habit)
                         } label: {
                             Label("Delete", systemImage: "trash")
                         }
                     }
+                    // 2) Swipe Right: Undo Today's Completion
+                    .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                        // Only show "Undo" if the habit was completed today
+                        if isHabitCompletedToday(habit) {
+                            Button {
+                                undoCompletion(habit)
+                            } label: {
+                                Label("Undo", systemImage: "arrow.uturn.left.circle")
+                            }
+                            .tint(.blue)
+                        }
+                    }
                 }
+
 
                 
                 // 5) Add Habit Section
@@ -155,4 +170,54 @@ struct ContentView: View {
             // e.g., do other day-change checks if needed
         }
     }
+    private func undoCompletion(_ habit: Habit) {
+        var updated = habit
+        let calendar = Calendar.current
+        
+        // 1) Find any completion date that occurred today
+        if let index = updated.completionDates.firstIndex(where: {
+            calendar.isDateInToday($0)
+        }) {
+            // Remove that date
+            updated.completionDates.remove(at: index)
+            
+            // Recalculate the streak from scratch or adjust it
+            updated.streak = recalcStreak(for: updated)
+            
+            // Persist changes
+            store.updateHabit(updated)
+        }
+    }
+
+    /// Example "recalc" method that rebuilds the streak based on consecutive day completions
+    private func recalcStreak(for habit: Habit) -> Int {
+        // Sort completionDates so newest is last
+        let sortedDates = habit.completionDates.sorted()
+        guard !sortedDates.isEmpty else { return 0 }
+
+        var streak = 1
+        var currentStreak = 1
+        
+        let calendar = Calendar.current
+        for i in 1..<sortedDates.count {
+            // Check if this date is exactly 1 day after the previous date
+            let prev = sortedDates[i - 1]
+            let curr = sortedDates[i]
+            
+            if let dayAfterPrev = calendar.date(byAdding: .day, value: 1, to: prev),
+               calendar.isDate(dayAfterPrev, inSameDayAs: curr) {
+                // Consecutive day => increment
+                currentStreak += 1
+                streak = max(streak, currentStreak)
+            } else {
+                // Non-consecutive day => reset
+                currentStreak = 1
+            }
+        }
+        
+        return streak
+    }
+
+
 }
+
