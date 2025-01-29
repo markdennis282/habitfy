@@ -55,7 +55,7 @@ struct AnalyticsView: View {
                     StatBoxView(title: "Best Streak", value: "\(bestStreak)")
                     StatBoxView(title: "Perfect Days", value: "\(perfectDays)")
                     StatBoxView(title: "Total Done", value: "\(totalHabitsDone)")
-                    StatBoxView(title: "Daily Avg", value: String(format: "%.1f", dailyAverage))
+                    StatBoxView(title: "Daily Average", value: String(format: "%.1f", dailyAverage))
                 }
                 .padding(.top, 12)
             }
@@ -64,7 +64,6 @@ struct AnalyticsView: View {
         .navigationTitle("Analytics")
     }
     
-    // MARK: - Chart Data (Last 7 Days)
     
     /// We'll group completions by day in the past 7 days.
     private func generateCompletionsPast7Days() -> [DailyCompletion] {

@@ -10,6 +10,12 @@ import Combine
 
 class HabitStore: ObservableObject {
     @Published var habits: [Habit] = []
+    @Published var friends: [Friend] = [
+        // Add a few sample friends for testing
+        Friend(name: "Alice", bestStreak: 5, totalCompletionsLast7Days: 20),
+        Friend(name: "Bob", bestStreak: 3, totalCompletionsLast7Days: 15),
+        Friend(name: "Carol", bestStreak: 8, totalCompletionsLast7Days: 29)
+    ]
 
     private let storeKey = "habitsKey"
 
@@ -45,5 +51,15 @@ class HabitStore: ObservableObject {
     func removeHabit(_ habit: Habit) {
         habits.removeAll { $0.id == habit.id }
         saveHabits()
+    }
+    func addFriend(_ friend: Friend) {
+        friends.append(friend)
+        // If you want to persist friend data in UserDefaults,
+        // you'll need a separate key and JSON encoding,
+        // similar to how you do it for `habits`.
+    }
+    
+    func removeFriend(_ friend: Friend) {
+        friends.removeAll { $0.id == friend.id }
     }
 }

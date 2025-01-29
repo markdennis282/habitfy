@@ -22,6 +22,10 @@
 		1444D8FB2D3EC743005CCF9C /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8FA2D3EC743005CCF9C /* AnalyticsView.swift */; };
 		1444D8FD2D3EC772005CCF9C /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8FC2D3EC772005CCF9C /* NotificationManager.swift */; };
 		1444D9012D3FFDB3005CCF9C /* DayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9002D3FFDB3005CCF9C /* DayProgress.swift */; };
+		1444D9062D414633005CCF9C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9052D414633005CCF9C /* CircularProgressView.swift */; };
+		1444D9082D47B730005CCF9C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9072D47B730005CCF9C /* MenuView.swift */; };
+		14ABBBA22D4A975500BF45DF /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABBBA12D4A975500BF45DF /* Friend.swift */; };
+		14ABBBA42D4A97C800BF45DF /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABBBA32D4A97C800BF45DF /* LeaderboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +85,10 @@
 		1444D8FA2D3EC743005CCF9C /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		1444D8FC2D3EC772005CCF9C /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		1444D9002D3FFDB3005CCF9C /* DayProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayProgress.swift; sourceTree = "<group>"; };
+		1444D9052D414633005CCF9C /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		1444D9072D47B730005CCF9C /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		14ABBBA12D4A975500BF45DF /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		14ABBBA32D4A97C800BF45DF /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +180,7 @@
 			children = (
 				1444D8F22D3EC62E005CCF9C /* Habit.swift */,
 				1444D8F42D3EC643005CCF9C /* HabitStore.swift */,
+				14ABBBA12D4A975500BF45DF /* Friend.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -184,6 +193,9 @@
 				1444D8F82D3EC6F0005CCF9C /* AddHabitView.swift */,
 				1444D8FA2D3EC743005CCF9C /* AnalyticsView.swift */,
 				1444D9002D3FFDB3005CCF9C /* DayProgress.swift */,
+				1444D9052D414633005CCF9C /* CircularProgressView.swift */,
+				1444D9072D47B730005CCF9C /* MenuView.swift */,
+				14ABBBA32D4A97C800BF45DF /* LeaderboardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -229,6 +241,8 @@
 			dependencies = (
 			);
 			name = "habitfy Watch App";
+			packageProductDependencies = (
+			);
 			productName = "habitfy Watch App";
 			productReference = 1444D8B82D3EC436005CCF9C /* habitfy Watch App.app */;
 			productType = "com.apple.product-type.application";
@@ -304,6 +318,8 @@
 				Base,
 			);
 			mainGroup = 1444D8AB2D3EC435005CCF9C;
+			packageReferences = (
+			);
 			productRefGroup = 1444D8B32D3EC436005CCF9C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -357,12 +373,16 @@
 				1444D8F72D3EC6A0005CCF9C /* TodayHabitsView.swift in Sources */,
 				1444D9012D3FFDB3005CCF9C /* DayProgress.swift in Sources */,
 				1444D8F52D3EC643005CCF9C /* HabitStore.swift in Sources */,
+				14ABBBA22D4A975500BF45DF /* Friend.swift in Sources */,
 				1444D8F32D3EC62E005CCF9C /* Habit.swift in Sources */,
 				1444D8C02D3EC436005CCF9C /* ContentView.swift in Sources */,
 				1444D8FB2D3EC743005CCF9C /* AnalyticsView.swift in Sources */,
 				1444D8BE2D3EC436005CCF9C /* habitfyApp.swift in Sources */,
+				1444D9082D47B730005CCF9C /* MenuView.swift in Sources */,
 				1444D8FD2D3EC772005CCF9C /* NotificationManager.swift in Sources */,
+				1444D9062D414633005CCF9C /* CircularProgressView.swift in Sources */,
 				1444D8F92D3EC6F0005CCF9C /* AddHabitView.swift in Sources */,
+				14ABBBA42D4A97C800BF45DF /* LeaderboardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

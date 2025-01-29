@@ -14,7 +14,24 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                // 1) Sort habits so incomplete appear first, completed appear last
+                HStack {
+                    Text("Today")
+                        .font(.headline)
+                        .foregroundColor(.primary)
+                    
+                    Spacer()
+                    
+                    CircularProgressView(
+                        progress: calculateCompletionFraction(),
+                        lineWidth: 6,
+                        progressColor: .blue,
+                        backgroundColor: .gray.opacity(0.2)
+                    )
+                    .frame(width: 30, height: 30)
+                }
+                .padding(.vertical, 8)
+                
+                // 1) Sort habits so incomplete appear first, completed last
                 let sortedHabits = store.habits.sorted { a, b in
                     let completedA = isHabitCompletedToday(a)
                     let completedB = isHabitCompletedToday(b)
@@ -22,9 +39,9 @@ struct ContentView: View {
                     if completedA == completedB {
                         // If both have the same completion status,
                         // sort by their reminder times (earlier first).
-                        return a.reminderTime < b.reminderTime
+                        return (a.reminderTime ?? Date.distantFuture) < (b.reminderTime ?? Date.distantFuture)
                     } else {
-                        // Put incomplete habits (completed == false) first
+                        // Put incomplete habits first
                         return !completedA
                     }
                 }
@@ -71,7 +88,6 @@ struct ContentView: View {
                     }
                     // 2) Swipe Right: Undo Today's Completion
                     .swipeActions(edge: .leading, allowsFullSwipe: false) {
-                        // Only show "Undo" if the habit was completed today
                         if isHabitCompletedToday(habit) {
                             Button {
                                 undoCompletion(habit)
@@ -82,10 +98,8 @@ struct ContentView: View {
                         }
                     }
                 }
-
-
                 
-                // 5) Add Habit Section
+                // 5) Add Habit Section (KEEP in List)
                 Section {
                     NavigationLink(destination: AddHabitView(store: store)) {
                         VStack {
@@ -99,9 +113,25 @@ struct ContentView: View {
                     }
                     .buttonStyle(.plain)
                 }
-                .listRowBackground(Color.blue.opacity(0.2)) // Optional: Add background color for distinction
+                .listRowBackground(Color.blue.opacity(0.2))
+                //leaderboard
+                Section {
+                    NavigationLink(destination: LeaderboardView(store: store)) {
+                        VStack {
+                            Image(systemName: "person.3.sequence.fill")
+                                .font(.title2)
+                            Text("Leaderboard")
+                                .font(.caption)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 44)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                }
+                .listRowBackground(Color.orange.opacity(0.2))
 
-                // 6) Analytics Section
+                
+                // 6) Analytics Section (KEEP in List)
                 Section {
                     NavigationLink(destination: AnalyticsView(store: store)) {
                         VStack {
@@ -115,17 +145,32 @@ struct ContentView: View {
                     }
                     .buttonStyle(.plain)
                 }
-                .listRowBackground(Color.purple.opacity(0.2)) // Optional: Add background color for distinction
+                .listRowBackground(Color.purple.opacity(0.2))
             }
             .navigationTitle("Today")
-            .onAppear {
-                checkForDayChange()
+            .toolbar {
+                // Put hamburger button on the top-left in watchOS
+                ToolbarItem(placement: .cancellationAction) {
+                    NavigationLink(destination: MenuView(store: store)) {
+                        Image(systemName: "line.3.horizontal")
+                    }
+                }
             }
+            
         }
     }
 
-    // MARK: - Helper Methods
+
+    //  Helper Methods
     
+
+    private func calculateCompletionFraction() -> Double {
+        let totalHabits = store.habits.count
+        guard totalHabits > 0 else { return 0.0 }
+        
+        let completedHabits = store.habits.filter(isHabitCompletedToday).count
+        return Double(completedHabits) / Double(totalHabits)
+    }
     /// Returns true if the habit is completed today
     private func isHabitCompletedToday(_ habit: Habit) -> Bool {
         let calendar = Calendar.current
