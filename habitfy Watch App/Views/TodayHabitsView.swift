@@ -10,6 +10,13 @@ import Combine
 struct TodayHabitsView: View {
     @ObservedObject var store: HabitStore
     @State private var today = Date()
+    
+    // Date formatter for displaying the reminder time
+    private var timeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }
 
     var body: some View {
         let sortedHabits = store.habits.sorted {
@@ -23,7 +30,15 @@ struct TodayHabitsView: View {
             Button(action: {
                 completeHabit(habit)
             }) {
-                Text(habit.name)
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(habit.name)
+                        .font(.headline)
+                    if let reminderTime = habit.reminderTime {
+                        Text("Reminder: \(timeFormatter.string(from: reminderTime))")
+                            .font(.subheadline)
+                            .foregroundColor(.gray)
+                    }
+                }
             }
         }
         .navigationTitle("Today")

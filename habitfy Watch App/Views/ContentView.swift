@@ -7,13 +7,40 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var store = HabitStore()
+    @State private var isSignedIn = false
+    @State private var currentUserID: String? = nil
     @State private var today = Date()
-    
+    @StateObject private var store: HabitStore
+
+    init() {
+        let savedUserID = UserDefaults.standard.string(forKey: "userID") ?? ""
+        _store = StateObject(wrappedValue: HabitStore(userID: savedUserID)) // ✅ Ensures a valid userID
+        _isSignedIn = State(initialValue: !savedUserID.isEmpty)
+        _currentUserID = State(initialValue: savedUserID)
+    }
 
     var body: some View {
+        Group {
+            if !isSignedIn {
+                SignInView(isSignedIn: $isSignedIn, currentUserID: $currentUserID)
+            } else {
+                mainHabitView
+            }
+        }
+        .onChange(of: isSignedIn) { newValue in
+            if newValue, let userID = currentUserID {
+                store.updateUserID(userID)  // ✅ Ensures HabitStore has a userID after sign-in
+            }
+        }
+    }
+    
+    var mainHabitView: some View {
         NavigationView {
             List {
+                let completionFraction = calculateCompletionFraction()
+                let allComplete = completionFraction == 1.0
+                
+                // "Today" row
                 HStack {
                     Text("Today")
                         .font(.headline)
@@ -22,7 +49,7 @@ struct ContentView: View {
                     Spacer()
                     
                     CircularProgressView(
-                        progress: calculateCompletionFraction(),
+                        progress: completionFraction,
                         lineWidth: 6,
                         progressColor: .blue,
                         backgroundColor: .gray.opacity(0.2)
@@ -30,21 +57,15 @@ struct ContentView: View {
                     .frame(width: 30, height: 30)
                 }
                 .padding(.vertical, 8)
+                // Match habit background colors:
+                .listRowBackground(
+                    allComplete
+                    ? Color.green.opacity(0.2)
+                    : Color.gray.opacity(0.2)
+                )
                 
                 // 1) Sort habits so incomplete appear first, completed last
-                let sortedHabits = store.habits.sorted { a, b in
-                    let completedA = isHabitCompletedToday(a)
-                    let completedB = isHabitCompletedToday(b)
-                    
-                    if completedA == completedB {
-                        // If both have the same completion status,
-                        // sort by their reminder times (earlier first).
-                        return (a.reminderTime ?? Date.distantFuture) < (b.reminderTime ?? Date.distantFuture)
-                    } else {
-                        // Put incomplete habits first
-                        return !completedA
-                    }
-                }
+                let sortedHabits = sortHabits(store.habits)
                 
                 // 2) Display each habit
                 ForEach(sortedHabits) { habit in
@@ -56,16 +77,26 @@ struct ContentView: View {
                     } label: {
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
+                                // Habit name
                                 Text(habit.name)
                                     .foregroundColor(
                                         isHabitCompletedToday(habit) ? .gray : .primary
                                     )
                                 
-                                Text("🔥 \(habit.streak) \(habit.streak == 1 ? "day" : "days")")
-                                    .font(.caption2)
-                                    .foregroundColor(.secondary)
+                                // Streak + Reminder on the same row
+                                HStack(spacing: 8) {
+                                    Text("🔥 \(habit.streak) \(habit.streak == 1 ? "day" : "days")")
+                                    
+                                    if let reminderTime = habit.reminderTime {
+                                        Text("⏰ \(timeFormatter.string(from: reminderTime))")
+                                    }
+                                }
+                                .font(.caption2)
+                                .foregroundColor(.secondary)
                             }
+                            
                             Spacer()
+                            
                             if isHabitCompletedToday(habit) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundColor(.green)
@@ -78,7 +109,7 @@ struct ContentView: View {
                         ? Color.green.opacity(0.2)
                         : Color.gray.opacity(0.2)
                     )
-                    // 1) Swipe Left: Delete Habit
+                    // Swipe Left: Delete Habit
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                         Button(role: .destructive) {
                             store.removeHabit(habit)
@@ -86,7 +117,7 @@ struct ContentView: View {
                             Label("Delete", systemImage: "trash")
                         }
                     }
-                    // 2) Swipe Right: Undo Today's Completion
+                    // Swipe Right: Undo Today's Completion
                     .swipeActions(edge: .leading, allowsFullSwipe: false) {
                         if isHabitCompletedToday(habit) {
                             Button {
@@ -99,71 +130,87 @@ struct ContentView: View {
                     }
                 }
                 
-                // 5) Add Habit Section (KEEP in List)
-                Section {
-                    NavigationLink(destination: AddHabitView(store: store)) {
-                        VStack {
-                            Image(systemName: "plus.circle.fill")
-                                .font(.title2)
-                            Text("Add Habit")
-                                .font(.caption)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: 44)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                }
-                .listRowBackground(Color.blue.opacity(0.2))
-                //leaderboard
-                Section {
-                    NavigationLink(destination: LeaderboardView(store: store)) {
-                        VStack {
-                            Image(systemName: "person.3.sequence.fill")
-                                .font(.title2)
-                            Text("Leaderboard")
-                                .font(.caption)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: 44)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                }
-                .listRowBackground(Color.orange.opacity(0.2))
-
+                // 3) Add Habit Section
+//                Section {
+//                    NavigationLink(destination: AddHabitView(store: store)) {
+//                        VStack {
+//                            Image(systemName: "plus.circle.fill")
+//                                .font(.title2)
+//                            Text("Add Habit")
+//                                .font(.caption)
+//                        }
+//                        .frame(maxWidth: .infinity, minHeight: 44)
+//                        .contentShape(Rectangle())
+//                    }
+//                    .buttonStyle(.plain)
+//                }
+//                .listRowBackground(Color.blue.opacity(0.2))
                 
-                // 6) Analytics Section (KEEP in List)
-                Section {
-                    NavigationLink(destination: AnalyticsView(store: store)) {
-                        VStack {
-                            Image(systemName: "chart.bar.xaxis")
-                                .font(.title2)
-                            Text("Analytics")
-                                .font(.caption)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: 44)
-                        .contentShape(Rectangle())
-                    }
-                    .buttonStyle(.plain)
-                }
-                .listRowBackground(Color.purple.opacity(0.2))
+                // 4) Leaderboard Section
+//                Section {
+//                    NavigationLink(destination: LeaderboardView(store: store)) {
+//                        VStack {
+//                            Image(systemName: "person.3.sequence.fill")
+//                                .font(.title2)
+//                            Text("Leaderboard")
+//                                .font(.caption)
+//                        }
+//                        .frame(maxWidth: .infinity, minHeight: 44)
+//                        .contentShape(Rectangle())
+//                    }
+//                    .buttonStyle(.plain)
+//                }
+//                .listRowBackground(Color.orange.opacity(0.2))
+
+                // 5) Analytics Section
+//                Section {
+//                    NavigationLink(destination: AnalyticsView(store: store)) {
+//                        VStack {
+//                            Image(systemName: "chart.bar.xaxis")
+//                                .font(.title2)
+//                            Text("Analytics")
+//                                .font(.caption)
+//                        }
+//                        .frame(maxWidth: .infinity, minHeight: 44)
+//                        .contentShape(Rectangle())
+//                    }
+//                    .buttonStyle(.plain)
+//                }
+//                .listRowBackground(Color.purple.opacity(0.2))
             }
             .navigationTitle("Today")
             .toolbar {
                 // Put hamburger button on the top-left in watchOS
                 ToolbarItem(placement: .cancellationAction) {
-                    NavigationLink(destination: MenuView(store: store)) {
+                    // Pass the sign-in state as BINDINGS to MenuView
+                    NavigationLink(destination: MenuView(store: store,
+                                                        isSignedIn: $isSignedIn,
+                                                        currentUserID: $currentUserID)) {
                         Image(systemName: "line.3.horizontal")
                     }
                 }
             }
-            
         }
     }
 
-
-    //  Helper Methods
+    // MARK: - Helper Methods
     
-
+    private func sortHabits(_ habits: [Habit]) -> [Habit] {
+        habits.sorted { a, b in
+            let completedA = isHabitCompletedToday(a)
+            let completedB = isHabitCompletedToday(b)
+            
+            if completedA == completedB {
+                // If both have the same completion status,
+                // sort by their reminder times (earlier first).
+                return (a.reminderTime ?? Date.distantFuture) < (b.reminderTime ?? Date.distantFuture)
+            } else {
+                // Put incomplete habits first
+                return !completedA
+            }
+        }
+    }
+    
     private func calculateCompletionFraction() -> Double {
         let totalHabits = store.habits.count
         guard totalHabits > 0 else { return 0.0 }
@@ -171,15 +218,14 @@ struct ContentView: View {
         let completedHabits = store.habits.filter(isHabitCompletedToday).count
         return Double(completedHabits) / Double(totalHabits)
     }
-    /// Returns true if the habit is completed today
+    
     private func isHabitCompletedToday(_ habit: Habit) -> Bool {
         let calendar = Calendar.current
-        return habit.completionDates.contains { date in
-            calendar.isDateInToday(date)
+        return habit.completionDates.contains {
+            calendar.isDateInToday($0)
         }
     }
 
-    /// Mark the habit as completed, update streak, and save
     private func completeHabit(_ habit: Habit) {
         var updatedHabit = habit
         let now = Date()
@@ -190,16 +236,13 @@ struct ContentView: View {
         // 2. Streak logic
         let calendar = Calendar.current
         if let lastCompletion = habit.completionDates.last {
-            // If the last completion was exactly yesterday, increment
             if let yesterday = calendar.date(byAdding: .day, value: -1, to: now),
                calendar.isDate(lastCompletion, inSameDayAs: yesterday) {
                 updatedHabit.streak += 1
             } else {
-                // Otherwise, reset to 1
                 updatedHabit.streak = 1
             }
         } else {
-            // First-ever completion
             updatedHabit.streak = 1
         }
 
@@ -207,7 +250,6 @@ struct ContentView: View {
         store.updateHabit(updatedHabit)
     }
 
-    /// If it’s a new day, do any day-change logic here
     private func checkForDayChange() {
         let calendar = Calendar.current
         if !calendar.isDate(today, inSameDayAs: Date()) {
@@ -215,6 +257,7 @@ struct ContentView: View {
             // e.g., do other day-change checks if needed
         }
     }
+
     private func undoCompletion(_ habit: Habit) {
         var updated = habit
         let calendar = Calendar.current
@@ -234,6 +277,12 @@ struct ContentView: View {
         }
     }
 
+    private let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        return formatter
+    }()
+    
     /// Example "recalc" method that rebuilds the streak based on consecutive day completions
     private func recalcStreak(for habit: Habit) -> Int {
         // Sort completionDates so newest is last
@@ -262,7 +311,4 @@ struct ContentView: View {
         
         return streak
     }
-
-
 }
-

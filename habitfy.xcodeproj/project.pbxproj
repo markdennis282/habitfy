@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		144107162D77181E00952263 /* app.py in Resources */ = {isa = PBXBuildFile; fileRef = 144107152D77181E00952263 /* app.py */; };
+		144107192D77443700952263 /* HabitListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 144107182D77443700952263 /* HabitListView.swift */; };
 		1444D8B92D3EC436005CCF9C /* habitfy Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 1444D8B82D3EC436005CCF9C /* habitfy Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1444D8BE2D3EC436005CCF9C /* habitfyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8BD2D3EC436005CCF9C /* habitfyApp.swift */; };
 		1444D8C02D3EC436005CCF9C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D8BF2D3EC436005CCF9C /* ContentView.swift */; };
@@ -24,8 +26,22 @@
 		1444D9012D3FFDB3005CCF9C /* DayProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9002D3FFDB3005CCF9C /* DayProgress.swift */; };
 		1444D9062D414633005CCF9C /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9052D414633005CCF9C /* CircularProgressView.swift */; };
 		1444D9082D47B730005CCF9C /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1444D9072D47B730005CCF9C /* MenuView.swift */; };
+		148EC67A2D6611F2007FF826 /* FirebaseLeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148EC6792D6611F2007FF826 /* FirebaseLeaderboardService.swift */; };
+		148EC67D2D66153F007FF826 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 148EC67C2D66153F007FF826 /* GoogleService-Info.plist */; };
+		148EC6802D6616E2007FF826 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 148EC67F2D6616E2007FF826 /* FirebaseFirestore */; };
 		14ABBBA22D4A975500BF45DF /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABBBA12D4A975500BF45DF /* Friend.swift */; };
 		14ABBBA42D4A97C800BF45DF /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14ABBBA32D4A97C800BF45DF /* LeaderboardView.swift */; };
+		14AEDF1B2D62716400525DBB /* LeaderboardServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF1A2D62716400525DBB /* LeaderboardServiceProtocol.swift */; };
+		14AEDF1D2D62721900525DBB /* StubLeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF1C2D62721900525DBB /* StubLeaderboardService.swift */; };
+		14AEDF1F2D62725F00525DBB /* MyServerLeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF1E2D62725F00525DBB /* MyServerLeaderboardService.swift */; };
+		14AEDF212D62744400525DBB /* LeaderboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF202D62744400525DBB /* LeaderboardViewModel.swift */; };
+		14AEDF232D6277E600525DBB /* HabitRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF222D6277E600525DBB /* HabitRow.swift */; };
+		14AEDF252D62780400525DBB /* MenuSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF242D62780400525DBB /* MenuSectionView.swift */; };
+		14AEDF272D627B9900525DBB /* LeaderboardRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF262D627B9900525DBB /* LeaderboardRow.swift */; };
+		14AEDF292D63627000525DBB /* CloudKitLeaderboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14AEDF282D63626F00525DBB /* CloudKitLeaderboardService.swift */; };
+		14FE96572D56576E00FAC39A /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FE96562D56576E00FAC39A /* SignInView.swift */; };
+		14FE96592D565A4200FAC39A /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FE96582D565A4200FAC39A /* CloudKitManager.swift */; };
+		14FE965B2D5BA2CD00FAC39A /* LocationPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14FE965A2D5BA2CD00FAC39A /* LocationPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +83,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		144107152D77181E00952263 /* app.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = app.py; sourceTree = "<group>"; };
+		144107182D77443700952263 /* HabitListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitListView.swift; sourceTree = "<group>"; };
 		1444D8B22D3EC436005CCF9C /* habitfy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = habitfy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1444D8B82D3EC436005CCF9C /* habitfy Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "habitfy Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1444D8BD2D3EC436005CCF9C /* habitfyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = habitfyApp.swift; sourceTree = "<group>"; };
@@ -87,8 +105,21 @@
 		1444D9002D3FFDB3005CCF9C /* DayProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayProgress.swift; sourceTree = "<group>"; };
 		1444D9052D414633005CCF9C /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
 		1444D9072D47B730005CCF9C /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		148EC6792D6611F2007FF826 /* FirebaseLeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLeaderboardService.swift; sourceTree = "<group>"; };
+		148EC67C2D66153F007FF826 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		14ABBBA12D4A975500BF45DF /* Friend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		14ABBBA32D4A97C800BF45DF /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		14AEDF1A2D62716400525DBB /* LeaderboardServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardServiceProtocol.swift; sourceTree = "<group>"; };
+		14AEDF1C2D62721900525DBB /* StubLeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubLeaderboardService.swift; sourceTree = "<group>"; };
+		14AEDF1E2D62725F00525DBB /* MyServerLeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyServerLeaderboardService.swift; sourceTree = "<group>"; };
+		14AEDF202D62744400525DBB /* LeaderboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardViewModel.swift; sourceTree = "<group>"; };
+		14AEDF222D6277E600525DBB /* HabitRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitRow.swift; sourceTree = "<group>"; };
+		14AEDF242D62780400525DBB /* MenuSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSectionView.swift; sourceTree = "<group>"; };
+		14AEDF262D627B9900525DBB /* LeaderboardRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardRow.swift; sourceTree = "<group>"; };
+		14AEDF282D63626F00525DBB /* CloudKitLeaderboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitLeaderboardService.swift; sourceTree = "<group>"; };
+		14FE96562D56576E00FAC39A /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		14FE96582D565A4200FAC39A /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		14FE965A2D5BA2CD00FAC39A /* LocationPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				148EC6802D6616E2007FF826 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,13 +148,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		144107142D7717D800952263 /* backend */ = {
+			isa = PBXGroup;
+			children = (
+				144107152D77181E00952263 /* app.py */,
+			);
+			path = backend;
+			sourceTree = "<group>";
+		};
 		1444D8AB2D3EC435005CCF9C = {
 			isa = PBXGroup;
 			children = (
+				144107142D7717D800952263 /* backend */,
 				1444D8BC2D3EC436005CCF9C /* habitfy Watch App */,
 				1444D8CD2D3EC439005CCF9C /* habitfy Watch AppTests */,
 				1444D8D72D3EC439005CCF9C /* habitfy Watch AppUITests */,
 				1444D8B32D3EC436005CCF9C /* Products */,
+				148EC67E2D6616E2007FF826 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +182,7 @@
 		1444D8BC2D3EC436005CCF9C /* habitfy Watch App */ = {
 			isa = PBXGroup;
 			children = (
+				148EC67C2D66153F007FF826 /* GoogleService-Info.plist */,
 				1444D8F12D3EC609005CCF9C /* Utils */,
 				1444D8F02D3EC5FE005CCF9C /* Views */,
 				1444D8EF2D3EC5E9005CCF9C /* Models */,
@@ -181,6 +224,7 @@
 				1444D8F22D3EC62E005CCF9C /* Habit.swift */,
 				1444D8F42D3EC643005CCF9C /* HabitStore.swift */,
 				14ABBBA12D4A975500BF45DF /* Friend.swift */,
+				14AEDF202D62744400525DBB /* LeaderboardViewModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -196,6 +240,12 @@
 				1444D9052D414633005CCF9C /* CircularProgressView.swift */,
 				1444D9072D47B730005CCF9C /* MenuView.swift */,
 				14ABBBA32D4A97C800BF45DF /* LeaderboardView.swift */,
+				14FE96562D56576E00FAC39A /* SignInView.swift */,
+				14FE965A2D5BA2CD00FAC39A /* LocationPickerView.swift */,
+				14AEDF222D6277E600525DBB /* HabitRow.swift */,
+				14AEDF242D62780400525DBB /* MenuSectionView.swift */,
+				14AEDF262D627B9900525DBB /* LeaderboardRow.swift */,
+				144107182D77443700952263 /* HabitListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,8 +254,21 @@
 			isa = PBXGroup;
 			children = (
 				1444D8FC2D3EC772005CCF9C /* NotificationManager.swift */,
+				14FE96582D565A4200FAC39A /* CloudKitManager.swift */,
+				14AEDF1A2D62716400525DBB /* LeaderboardServiceProtocol.swift */,
+				14AEDF1C2D62721900525DBB /* StubLeaderboardService.swift */,
+				14AEDF1E2D62725F00525DBB /* MyServerLeaderboardService.swift */,
+				14AEDF282D63626F00525DBB /* CloudKitLeaderboardService.swift */,
+				148EC6792D6611F2007FF826 /* FirebaseLeaderboardService.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		148EC67E2D6616E2007FF826 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -242,6 +305,7 @@
 			);
 			name = "habitfy Watch App";
 			packageProductDependencies = (
+				148EC67F2D6616E2007FF826 /* FirebaseFirestore */,
 			);
 			productName = "habitfy Watch App";
 			productReference = 1444D8B82D3EC436005CCF9C /* habitfy Watch App.app */;
@@ -319,6 +383,8 @@
 			);
 			mainGroup = 1444D8AB2D3EC435005CCF9C;
 			packageReferences = (
+				148EC67B2D6612F0007FF826 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				144107172D771B0C00952263 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 1444D8B32D3EC436005CCF9C /* Products */;
 			projectDirPath = "";
@@ -346,6 +412,8 @@
 			files = (
 				1444D8C52D3EC439005CCF9C /* Preview Assets.xcassets in Resources */,
 				1444D8C22D3EC439005CCF9C /* Assets.xcassets in Resources */,
+				144107162D77181E00952263 /* app.py in Resources */,
+				148EC67D2D66153F007FF826 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,18 +439,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				1444D8F72D3EC6A0005CCF9C /* TodayHabitsView.swift in Sources */,
+				148EC67A2D6611F2007FF826 /* FirebaseLeaderboardService.swift in Sources */,
 				1444D9012D3FFDB3005CCF9C /* DayProgress.swift in Sources */,
+				14AEDF212D62744400525DBB /* LeaderboardViewModel.swift in Sources */,
 				1444D8F52D3EC643005CCF9C /* HabitStore.swift in Sources */,
 				14ABBBA22D4A975500BF45DF /* Friend.swift in Sources */,
 				1444D8F32D3EC62E005CCF9C /* Habit.swift in Sources */,
+				14AEDF1D2D62721900525DBB /* StubLeaderboardService.swift in Sources */,
+				14FE965B2D5BA2CD00FAC39A /* LocationPickerView.swift in Sources */,
 				1444D8C02D3EC436005CCF9C /* ContentView.swift in Sources */,
 				1444D8FB2D3EC743005CCF9C /* AnalyticsView.swift in Sources */,
 				1444D8BE2D3EC436005CCF9C /* habitfyApp.swift in Sources */,
+				14FE96572D56576E00FAC39A /* SignInView.swift in Sources */,
+				144107192D77443700952263 /* HabitListView.swift in Sources */,
+				14AEDF232D6277E600525DBB /* HabitRow.swift in Sources */,
+				14AEDF272D627B9900525DBB /* LeaderboardRow.swift in Sources */,
+				14AEDF1B2D62716400525DBB /* LeaderboardServiceProtocol.swift in Sources */,
 				1444D9082D47B730005CCF9C /* MenuView.swift in Sources */,
+				14AEDF292D63627000525DBB /* CloudKitLeaderboardService.swift in Sources */,
 				1444D8FD2D3EC772005CCF9C /* NotificationManager.swift in Sources */,
 				1444D9062D414633005CCF9C /* CircularProgressView.swift in Sources */,
+				14AEDF252D62780400525DBB /* MenuSectionView.swift in Sources */,
 				1444D8F92D3EC6F0005CCF9C /* AddHabitView.swift in Sources */,
 				14ABBBA42D4A97C800BF45DF /* LeaderboardView.swift in Sources */,
+				14AEDF1F2D62725F00525DBB /* MyServerLeaderboardService.swift in Sources */,
+				14FE96592D565A4200FAC39A /* CloudKitManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,13 +684,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7WVYAHVCQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_KEY_CFBundleDisplayName = habitfy;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = oinu.habitfy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 			};
@@ -619,13 +702,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = D7WVYAHVCQ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_KEY_CFBundleDisplayName = habitfy;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = oinu.habitfy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
@@ -765,6 +850,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		144107172D771B0C00952263 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		148EC67B2D6612F0007FF826 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		148EC67F2D6616E2007FF826 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 148EC67B2D6612F0007FF826 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1444D8AC2D3EC435005CCF9C /* Project object */;
 }
