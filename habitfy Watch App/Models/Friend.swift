@@ -1,27 +1,28 @@
-//
-//  Friend.swift
-//  habitfy Watch App
-//
-//  Created by Mark Dennis on 29/01/2025.
-//
+
 
 import Foundation
 
-struct Friend: Identifiable, Codable, Equatable {
-    let id: UUID
+struct Friend: Identifiable, Codable, Equatable {//codeable to allow to send as json data
+    let id: Int
     var name: String
-    var bestStreak: Int
-    var totalCompletionsLast7Days: Int
+    var bestStreak: Int?
+    var totalCompletionsLast7Days: Int?
 
-    init(name: String, bestStreak: Int = 0, totalCompletionsLast7Days: Int = 0) {
-        self.id = UUID()
+    enum CodingKeys: String, CodingKey {//make compatable with api responses
+        case id
+        case name
+        case bestStreak = "longest_streak"
+        case totalCompletionsLast7Days = "total_completions"
+    }
+    
+    init(id: Int, name: String, bestStreak: Int? = nil, totalCompletionsLast7Days: Int? = nil) {
+        self.id = id
         self.name = name
         self.bestStreak = bestStreak
         self.totalCompletionsLast7Days = totalCompletionsLast7Days
     }
-
-    // Add Equatable conformance
-    static func == (lhs: Friend, rhs: Friend) -> Bool {
+    
+    static func == (lhs: Friend, rhs: Friend) -> Bool {//dont allow dups
         lhs.id == rhs.id
     }
 }

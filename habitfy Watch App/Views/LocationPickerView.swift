@@ -1,9 +1,4 @@
-//
-//  LocationPickerView.swift
-//  habitfy Watch App
-//
-//  Created by Mark Dennis on 20/01/2025.
-//
+
 
 import SwiftUI
 import MapKit
@@ -16,16 +11,15 @@ struct AnnotationItem: Identifiable {
 
 struct LocationPickerView: View {
     @Binding var selectedCoordinate: CLLocationCoordinate2D?
-    
+    //intiial map
     @State private var region = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 53.3444, longitude: -6.2577),
         span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
     )
 
-    
+    //display map where user can swipe and select location
     var body: some View {
         VStack {
-            // Map with the older initializer (compatible with watchOS or older iOS versions)
             Map(
                 coordinateRegion: $region,
                 interactionModes: .all,
@@ -37,9 +31,11 @@ struct LocationPickerView: View {
                         .foregroundColor(.red)
                 }
             }
+
             .onTapGesture {
-                // Update selectedCoordinate to the map's current center
-                selectedCoordinate = region.center
+                DispatchQueue.main.async {
+                    selectedCoordinate = region.center
+                }
             }
             .ignoresSafeArea()
             
