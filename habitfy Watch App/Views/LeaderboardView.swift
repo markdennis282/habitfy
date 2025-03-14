@@ -1,45 +1,79 @@
-//
-//  LeaderboardView.swift
-//  habitfy Watch App
-//
-//  Created by Mark Dennis on 29/01/2025.
-//
 
 import SwiftUI
 
 struct LeaderboardView: View {
-    @ObservedObject var store: HabitStore
+    @ObservedObject var store: HabitStore//looks at data from store
     
     var body: some View {
-        VStack {
-            
-            let sortedFriends = store.friends.sorted {
-                $0.totalCompletionsLast7Days > $1.totalCompletionsLast7Days
-            }
-            
-            List(Array(sortedFriends.enumerated()), id: \.1.id) { (index, friend) in
-                HStack {
-                    Text("#\(index + 1)")
-                        .fontWeight(.bold)
-                        .frame(width: 30, alignment: .leading)
-                    
-                    VStack(alignment: .leading) {
-                        Text(friend.name)
-                            .font(.headline)
-                        Text("Best Streak: \(friend.bestStreak)")
-                            .font(.caption)
+        NavigationView {
+            Form {
+                Section {
+                    if store.leaderboardEntries.isEmpty {
+                        Text("No Leaderboard Entries")
                             .foregroundColor(.secondary)
+                            .italic()
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                    } else {
+                        ForEach(Array(store.leaderboardEntries.enumerated()), id: \.offset) { index, entry in
+                            HStack {
+                                Text("#\(index + 1)")
+                                    .font(.caption)
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.white)
+                                    .padding(6)
+                                    .background(getRankColor(for: index))
+                                    .clipShape(Circle())
+                                    .accessibilityLabel("Rank \(index + 1)")
+                                
+                                Text(entry.name)
+                                    .font(.body)
+                                    .foregroundColor(.primary)
+                                
+                                Spacer()
+                                
+                                HStack(spacing: 4) {
+                                    if entry.longestStreak > 0 {
+                                        Image(systemName: "flame.fill")
+                                            .foregroundColor(.orange)
+                                            .font(.caption)
+                                            .accessibilityLabel("Active streak")
+                                    }
+                                    Text("\(entry.longestStreak)")
+                                        .font(.caption)
+                                        .foregroundColor(.secondary)
+                                }
+                                .accessibilityLabel("Longest streak \(entry.longestStreak) days")
+                            }
+                            .padding(.vertical, 2)
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel("\(entry.name), rank \(index + 1), longest streak \(entry.longestStreak) days")
+                        }
                     }
-                    
-                    Spacer()
-                    
-                    Text("\(friend.totalCompletionsLast7Days)")
-                        .font(.headline)
-                        .padding(.trailing, 8)
                 }
-                .padding(.vertical, 4)
+            }
+            .navigationTitle("Leaderboard")
+            .navigationBarTitleDisplayMode(.inline)
+            .refreshable {
+                store.fetchLeaderboard()
+            }
+            .onAppear {
+                store.fetchLeaderboard()
             }
         }
-        .navigationTitle("Leaderboard")
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+    //get colour of each rank
+    private func getRankColor(for index: Int) -> Color {
+        switch index {
+        case 0:
+            return .yellow
+        case 1:
+            return .gray
+        case 2:
+            return .brown
+        default:
+            return .blue 
+        }
     }
 }
