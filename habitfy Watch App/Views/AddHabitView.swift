@@ -108,12 +108,12 @@ struct AddHabitView: View {
             if let error = error {
                 print("Notification permission error: \(error.localizedDescription)")
             } else if granted {
-                print("✅ Notification permission granted")
+                print("Notification permission granted")
                 DispatchQueue.main.async {
                     completion()
                 }
             } else {
-                print("❌ Notification permission denied")
+                print("Notification permission denied")
             }
         }
     }
@@ -127,15 +127,15 @@ struct AddHabitView: View {
         content.sound = .default
 
         let triggerDate = Calendar.current.dateComponents([.hour, .minute], from: reminderTime)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: false)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: triggerDate, repeats: true)
 
         let request = UNNotificationRequest(identifier: habit.id.uuidString, content: content, trigger: trigger)
 
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
-                print("⚠️ Error scheduling time notification: \(error.localizedDescription)")
+                print("Error scheduling time notification: \(error.localizedDescription)")
             } else {
-                print("⏰ Habit reminder scheduled for \(reminderTime) ✅")
+                print("Habit reminder scheduled for \(reminderTime)")
             }
         }
     }
@@ -154,13 +154,12 @@ struct AddHabitView: View {
         region.notifyOnEntry = true
         region.notifyOnExit = false
 
-        let trigger = UNLocationNotificationTrigger(region: region, repeats: false)
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
         let request = UNNotificationRequest(
             identifier: habit.id.uuidString + "-location",
             content: content,
             trigger: trigger
         )
-
         UNUserNotificationCenter.current().add(request) { error in
             if let error = error {
                 print("⚠️ Error scheduling location notification: \(error.localizedDescription)")

@@ -170,6 +170,8 @@ def get_leaderboard(user_id):
     return jsonify(leaderboard), 200
 
 
+
+
 @app.route('/friends/add', methods=['POST'])
 def add_friend():
     data = request.json
