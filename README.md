@@ -1,10 +1,27 @@
 # habitfy
 
-To run the project:
+To Run the Project:
+Start the Backend Server:
 
-1. Open the project in **Xcode**.
-2. Select a **watchOS** simulator.
-3. Run the simulation.
+Open your terminal.
 
-This will launch the Habitfy Watch App in a simulated Apple Watch environment.
+Navigate to the backend directory:
+
+cd backend
+
+Run the backend server:
+
+python app.py
+
+Make sure the backend is running before launching the app in Xcode.
+
+Launch the Frontend (Habitfy Watch App):
+
+Open the project in Xcode.
+
+Select a watchOS simulator.
+
+Run the simulation.
+
+
 # habitfy
